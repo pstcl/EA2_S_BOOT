@@ -24,5 +24,9 @@ public class EaApplication extends SpringBootServletInitializer{
 
 	public static void main(String[] args) {
 		ApplicationContext applicationContext=	SpringApplication.run(EaApplication.class, args);
+		
+	for (int i = 0; i < 100; i++) {
+		System.out.println("SDAFFFFFFFSSSSSSSSSSSSSSSSSSSFDSFSDFAFDSFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
+	}
 	}
 }
