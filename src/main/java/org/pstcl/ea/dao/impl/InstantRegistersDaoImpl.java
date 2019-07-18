@@ -237,8 +237,7 @@ public class InstantRegistersDaoImpl implements IInstantRegistersDao{
 		if(locationid!=null) {
 		crit.add((Restrictions.eq("location.locationId", locationid)));
 		}
-		System.out.println(startDate);
-		System.out.println(endDate);
+
 		crit.add(Restrictions.ge("transactionDate",startDate));
 		crit.add(Restrictions.le("transactionDate",endDate));
 		InstantRegisters ir = (InstantRegisters) crit.uniqueResult();

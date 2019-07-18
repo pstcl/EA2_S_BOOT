@@ -27,7 +27,6 @@ public class MeterConverter implements Converter<String, MeterMaster>{
 		}
 		SubstationConverter.logger.info("Profile : {}", (Object) code);
 		MeterMaster a = this.service.findByMeterSrNo(code);
-		System.out.println(code);
 		return a;
 	}
 

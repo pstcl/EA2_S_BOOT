@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.autoconfigure.thymeleaf.ThymeleafAutoConfiguration;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 
@@ -20,13 +21,11 @@ import org.springframework.scheduling.annotation.EnableAsync;
 //@EnableJpaRepositories(basePackages = {"org.pstcl"})
 @EnableAsync
 @SpringBootApplication
+@ComponentScan(basePackages = {"org.pstcl"})
 public class EaApplication extends SpringBootServletInitializer{
 
 	public static void main(String[] args) {
 		ApplicationContext applicationContext=	SpringApplication.run(EaApplication.class, args);
 		
-	for (int i = 0; i < 100; i++) {
-		System.out.println("SDAFFFFFFFSSSSSSSSSSSSSSSSSSSFDSFSDFAFDSFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
-	}
 	}
 }

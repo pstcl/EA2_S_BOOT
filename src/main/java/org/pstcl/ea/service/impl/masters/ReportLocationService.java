@@ -28,7 +28,6 @@ public class ReportLocationService {
 		int month = addReportLocations.getMonth();
 		int year = addReportLocations.getYear();
 		List <LocationMaster> pendingLocation = locationMasterDao.findAllLocationMasters();
-		System.out.print((int) pendingLocation.size());
 		List<LocationMaster> list =addReportLocationsDao.findByMonthAndYear(month,year);
 		if(list!=null)
 		{
@@ -54,7 +53,6 @@ public class ReportLocationService {
 			addReportLocationsDao.delete(month, year, removelist);
 		if(addList!=null)
 			for(LocationMaster loc:addList) {
-				System.out.println(loc);
 				addReportLocationsDao.save(new ReportLocationsMonthMap(month,year,loc), null);
 		
 			}

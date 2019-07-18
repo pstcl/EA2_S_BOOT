@@ -76,7 +76,6 @@ public class ReportLocationsMonthMap {
 
 	public ReportLocationsMonthMap(int month, int year, LocationMaster locations) {
 		super();
-		System.out.println("Inside Constructor "+locations.getLocationId());
 		this.month = month;
 		this.year = year;
 		this.locationMaster1 = locations;

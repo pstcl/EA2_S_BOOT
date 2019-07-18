@@ -38,7 +38,6 @@ public class DeviceTypeMasterDaoImpl implements IDeviceTypeMasterDao{
 	@Transactional(value="sldcTxnManager")
 	public DeviceTypeMaster findById(String deviceId) {
 		DeviceTypeMaster txn = getSession().get(DeviceTypeMaster.class,deviceId);
-		System.out.println(txn);
 		return txn;
 	}
 	

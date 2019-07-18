@@ -64,7 +64,6 @@ public class AddReportLocationsDaoImpl implements IAddReportLocationsDao {
 		crit.add(Restrictions.eq("year", year));
 		crit.add(Restrictions.in("locationMaster1", locationMaster));
 		List<ReportLocationsMonthMap> txns = (List<ReportLocationsMonthMap>) crit.list();
-		System.out.println(txns.size());
 		for (ReportLocationsMonthMap txn : txns)
 			getSession().delete(txn);
 	}

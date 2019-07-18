@@ -37,7 +37,6 @@ public class FeederMasterDaoImpl implements IFeederMasterDao{
 	@Transactional(value="sldcTxnManager")
 	public FeederMaster findById(int id) {
 		FeederMaster txn = getSession().get(FeederMaster.class,id);
-		System.out.println(txn);
 		return txn;
 	}
 	

@@ -57,7 +57,7 @@ public class ReportLocMappingController {
 				model.addAttribute("addedLocations",addedLocations);
 			else
 				model.addAttribute("addedLocations",null);	
-			System.out.println(addedLocations.size());
+			//System.out.println(addedLocations.size());
 		}
 		catch(Exception e) {
 			e.printStackTrace();

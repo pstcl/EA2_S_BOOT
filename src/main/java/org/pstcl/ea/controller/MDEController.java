@@ -90,7 +90,8 @@ public class MDEController {
 
 	@RequestMapping(value = {"/", "/home"}, method = {RequestMethod.GET})
 	public String home(final ModelMap model) {
-
+		
+		
 //		if(substationService.getLoggedInUser().getFirstLogin())
 //		{
 //			model.addAttribute("currentUser", substationService.getLoggedInUser());

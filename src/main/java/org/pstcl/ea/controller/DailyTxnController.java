@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/")
 public class DailyTxnController {
 
+
+
 	@Autowired
 	private DailyTxnService dailyTxnService;
 
@@ -34,7 +36,7 @@ public class DailyTxnController {
 		modelMap.addAttribute("year",year);
 		return "addDailyExportImport";
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_SLDC_USER') or hasRole('ROLE_SLDC_ADMIN')")
 	@RequestMapping(value = "/addPendingLocData-{locationId}", method = RequestMethod.GET)
 	public String addPendingLocData(@PathVariable String locationId,@RequestParam(value = "month") Integer month,
@@ -45,7 +47,7 @@ public class DailyTxnController {
 		modelMap.addAttribute("year",year);
 		return "addDailyExportImport";
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_SLDC_USER') or hasRole('ROLE_SLDC_ADMIN')")
 	@RequestMapping(value = "/editPendingLocData-{locationId}", method = RequestMethod.GET)
 	public String editPendingLocData(@PathVariable String locationId,@RequestParam(value = "month") Integer month,
@@ -57,13 +59,13 @@ public class DailyTxnController {
 		return "addDailyExportImport";
 	}
 
-	
+
 	//Save all meters data
-		@RequestMapping(value = {"/saveDailyTxSS"}, method = {RequestMethod.POST})
-		public String saveDailyTxSS(LocationSurveyDataModel dailyTransactionModel, BindingResult result, ModelMap model) {
-			dailyTxnService.saveDailyTransactions(dailyTransactionModel);
-			return "redirect:/home";
-		}
+	@RequestMapping(value = {"/saveDailyTxSS"}, method = {RequestMethod.POST})
+	public String saveDailyTxSS(LocationSurveyDataModel dailyTransactionModel, BindingResult result, ModelMap model) {
+		dailyTxnService.saveDailyTransactions(dailyTransactionModel);
+		return "redirect:/home";
+	}
 
 
 }
