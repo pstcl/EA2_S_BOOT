@@ -39,13 +39,16 @@ public class DailyTxnService extends EnergyAccountsService{
 	protected ILocationEMFDao locEmfDao;
 
 
+
+
 	public LocationSurveyDataModel createDailyFromLoadSurveyModel(String locationId, int month, int year) {
 
 		LocationSurveyDataModel locationSurveyDataModel=new LocationSurveyDataModel();
 		LocationMaster locationMaster=locationMasterDao.findById(locationId);
-		MeterMaster  meterMaster=meterDao.findMeterForMonth(locationId, month, year);
+
+		MeterMaster  meterMaster=null;//meterDao.findMeterForMonth(locationId, month, year);
 		locationSurveyDataModel.setLocationMaster(locationMaster);
-		locationSurveyDataModel.setMeterMaster(meterMaster);
+		//locationSurveyDataModel.setMeterMaster(meterMaster);
 
 		Date startDate=DateUtil.additionDailySurveyRecsStartDate(month, year);
 		Date endDate=DateUtil.additionDailySurveyRecsEndDate(month, year);
@@ -55,10 +58,18 @@ public class DailyTxnService extends EnergyAccountsService{
 		for(Date current = startDate;!current.after(endDate);current =DateUtil.nextDay(current))
 		{
 			DailyTransaction dailyTransaction=dailyTransactionDao.findByLocationDateCombo(locationMaster, current);
-
+			DailyTransaction dailyTransactionFromLoadSurvey=null;
 			if(null==dailyTransaction)
 			{	
-				DailyTransaction dailyTransactionFromLoadSurvey=loadSurveyTransactionDao.sumLoadSurveyByDayAndLocation(locationMaster, current);
+				MeterLocationMap  meterLocationMap=mtrLocMappingDao.findMeterLocationMapByDate(locationId, current);
+				if(meterLocationMap!=null)
+				{
+					meterMaster=meterLocationMap.getMeterMaster();
+				}
+				if(meterMaster!=null)
+				{
+					dailyTransactionFromLoadSurvey=loadSurveyTransactionDao.sumLoadSurveyByDayAndMeter(meterMaster, current);
+				}
 				dailyTransaction=new DailyTransaction();
 				dailyTransaction.setTransactionDate(current);
 				dailyTransaction.setLocation(locationMaster);
@@ -129,7 +140,7 @@ public class DailyTxnService extends EnergyAccountsService{
 		List<LocationMFMap> locationEMFList=locEmfDao.findLocationEmfByLocAndDate(mtrLocMapList, startDateOfMonth); 
 
 		for (DailyTransaction dailyTransaction : dailyTransactions) {
-			
+
 			dailyTransaction.setTransactionStatus(EAUtil.DAILY_TRANSACTION_ADDED_MANUALLY);
 			calculationMappingUtil.setDailyTxnLocationAndMF(mtrLocMapList, locationEMFList, dailyTransaction);
 			calculationMappingUtil.calculateImportExport(dailyTransaction);

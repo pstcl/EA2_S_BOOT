@@ -8,6 +8,7 @@ import org.pstcl.ea.model.entity.DailyTransaction;
 import org.pstcl.ea.model.entity.EAUser;
 import org.pstcl.ea.model.entity.LoadSurveyTransaction;
 import org.pstcl.ea.model.entity.LocationMaster;
+import org.pstcl.ea.model.entity.MeterMaster;
 import org.pstcl.ea.model.entity.SubstationMaster;
 
 
@@ -26,4 +27,5 @@ public interface ILoadSurveyTransactionDao  {
 	void save(List<LoadSurveyTransaction> loadSurveyList, EAUser loggedInUser);
 	List<LoadSurveyTransaction> findLoadSurveyByDayAndLocation(LocationMaster location, Date transactionDate);
 	DailyTransaction sumLoadSurveyByDayAndLocation(LocationMaster location, Date transactionDate);
+	DailyTransaction sumLoadSurveyByDayAndMeter(MeterMaster meterMaster, Date transactionDate);
 }

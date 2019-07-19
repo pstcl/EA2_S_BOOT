@@ -20,6 +20,7 @@ import org.pstcl.ea.model.entity.EAUser;
 import org.pstcl.ea.model.entity.LoadSurveyTransaction;
 import org.pstcl.ea.model.entity.LocationMaster;
 import org.pstcl.ea.model.entity.LossReportEntity;
+import org.pstcl.ea.model.entity.MeterMaster;
 import org.pstcl.ea.model.entity.SubstationMaster;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -174,6 +175,34 @@ public class LoadSurveyTransactionDaoImpl  implements ILoadSurveyTransactionDao 
 		
 		Criteria crit = createEntityCriteria();
 		crit.add((Restrictions.in("location.locationId", location.getLocationId())));
+		crit.add(Restrictions.eq("monthOfYear",monthOfYear));
+		crit.add(Restrictions.eq("dayOfMonth",dayOfMonth));
+		crit.add(Restrictions.eq("year",year));
+		
+		
+		@SuppressWarnings("unchecked")
+		DailyTransaction sumEntity = (DailyTransaction) crit
+		.setProjection(Projections.projectionList().add(Projections.sum("exportWhFundTotal"), "exportWHF")
+				.add(Projections.sum("importWhFundTotal"), "importWHF")
+				.add(Projections.groupProperty("location"), "location")
+				)
+		.setResultTransformer(Transformers.aliasToBean(DailyTransaction.class)).uniqueResult();
+		
+		
+		return sumEntity;
+	}
+	@Override
+	@Transactional(value="sldcTxnManager")
+	public DailyTransaction sumLoadSurveyByDayAndMeter(MeterMaster meterMaster,Date transactionDate) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(transactionDate);
+		int year = cal.get(Calendar.YEAR);
+		int monthOfYear = cal.get(Calendar.MONTH);
+		int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
+
+		
+		Criteria crit = createEntityCriteria();
+		crit.add((Restrictions.in("meter.meterSrNo", meterMaster.getMeterSrNo())));
 		crit.add(Restrictions.eq("monthOfYear",monthOfYear));
 		crit.add(Restrictions.eq("dayOfMonth",dayOfMonth));
 		crit.add(Restrictions.eq("year",year));

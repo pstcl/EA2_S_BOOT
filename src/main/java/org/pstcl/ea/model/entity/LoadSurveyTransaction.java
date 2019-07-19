@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "LOAD_SURVEY_TRANSACTION", uniqueConstraints = {
-		@UniqueConstraint(columnNames = { "LOC_ID", "transactionDate" }) })
+		@UniqueConstraint(columnNames = { "METER_ID", "transactionDate" }) })
 public class LoadSurveyTransaction {
 
 	@Column
@@ -65,6 +65,20 @@ public class LoadSurveyTransaction {
 	@ManyToOne
 	@JoinColumn(name = "LOC_ID")
 	private LocationMaster location;
+
+	@JsonIgnore
+	@ManyToOne 
+	@JoinColumn(name = "METER_ID")
+	private MeterMaster meter;
+	
+	
+	public MeterMaster getMeter() {
+		return meter;
+	}
+
+	public void setMeter(MeterMaster meter) {
+		this.meter = meter;
+	}
 
 	@Column
 	private Integer minuteOfHour;
@@ -116,7 +130,7 @@ public class LoadSurveyTransaction {
 
 	public LoadSurveyTransaction() {super();}
 
-	public LoadSurveyTransaction(String fileName, LocationMaster location, Date transactionDate, Integer recordNo,
+	public LoadSurveyTransaction(String fileName, LocationMaster location,MeterMaster meterMaster, Date transactionDate, Integer recordNo,
 			BigDecimal importWhFundTotal, BigDecimal exportWhFundTotal, BigDecimal avgFrequency, BigDecimal q1varhTotal,
 			BigDecimal q2varhTotal, BigDecimal q3varhTotal, BigDecimal q4varhTotal, BigDecimal netWh, BigDecimal freqcode,
 			BigDecimal importVAhTotal, BigDecimal exportVAhTotal, BigDecimal importWhTotal, BigDecimal exportWhTotal,
@@ -125,6 +139,7 @@ public class LoadSurveyTransaction {
 		this.setTransactionDate(transactionDate);
 		this.location = location;
 
+		this.meter=meterMaster;
 		this.fileName = fileName;
 		this.recordNo = recordNo;
 		this.importWhFundTotal = importWhFundTotal;

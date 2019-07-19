@@ -108,11 +108,11 @@
 					Location-${ locationSurveyDataModel.locationMaster.locationId} 
 					<sec:authorize
 						access="hasAnyRole('ROLE_SLDC_ADMIN')">
-						<a title="${locationSurveyDataModel.locationMaster.locationId}"
-							href="javascript:window.location='editPendingLocData-${locationSurveyDataModel.locationMaster.locationId}?month=${month}&year=${year}'">
+						<a title="${dailyTransactionModel.locationMaster.locationId}"
+							href="javascript:window.location='editPendingLocData-${dailyTransactionModel.locationMaster.locationId}?month=${month}&year=${year}'">
 							Edit Data </a>
-						<a title="${locationSurveyDataModel.locationMaster.locationId}"
-							href="javascript:window.location='createDailyFromLoadSurveyData-${locationSurveyDataModel.locationMaster.locationId}?month=${month}&year=${year}'">
+						<a title="${dailyTransactionModel.locationMaster.locationId}"
+							href="javascript:window.location='createDailyFromLoadSurveyData-${dailyTransactionModel.locationMaster.locationId}?month=${month}&year=${year}'">
 							Substitute With Load Survey Data </a>
 					</sec:authorize>
 				</span>

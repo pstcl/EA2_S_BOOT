@@ -1027,7 +1027,7 @@ public class DataReaderThread extends CalculationMappingUtil {
 
 				fileDetails.setSurveyRecordNoEnd(recordNo);
 
-				return new LoadSurveyTransaction(fileName, fileDetails.getLocation(), transactionDate, recordNo,
+				return new LoadSurveyTransaction(fileName, fileDetails.getLocation(),fileDetails.getMeterMaster(), transactionDate, recordNo,
 						importWhFundTotal, exportWhFundTotal, avgFrequency, q1varhTotal, q2varhTotal, q3varhTotal,
 						q4varhTotal, netWh, freqcode, importVAhTotal, exportVAhTotal, importWhTotal, exportWhTotal,
 						statusIndication, recordStatus);
@@ -1037,7 +1037,7 @@ public class DataReaderThread extends CalculationMappingUtil {
 				fileDetails.setSurveyRecordNoEnd(recordNo);
 				e.printStackTrace();
 				System.out.println(e.getMessage());
-				return new LoadSurveyTransaction(fileName, fileDetails.getLocation(), transactionDate, recordNo,
+				return new LoadSurveyTransaction(fileName, fileDetails.getLocation(),fileDetails.getMeterMaster(), transactionDate, recordNo,
 						importWhFundTotal, exportWhFundTotal, avgFrequency, q1varhTotal, q2varhTotal, q3varhTotal,
 						q4varhTotal, netWh, freqcode, importVAhTotal, exportVAhTotal, importWhTotal, exportWhTotal,
 						statusIndication, recordStatus);
