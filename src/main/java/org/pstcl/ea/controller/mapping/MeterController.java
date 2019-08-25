@@ -2,9 +2,9 @@ package org.pstcl.ea.controller.mapping;
 
 import java.util.List;
 
+import org.pstcl.ea.entity.LocationMaster;
+import org.pstcl.ea.entity.MeterMaster;
 import org.pstcl.ea.model.MastersForLocationEntry;
-import org.pstcl.ea.model.entity.LocationMaster;
-import org.pstcl.ea.model.entity.MeterMaster;
 import org.pstcl.ea.service.impl.SubstationDataServiceImpl;
 import org.pstcl.ea.service.impl.masters.EMFMappingService;
 import org.pstcl.ea.service.impl.masters.LocationMasterService;

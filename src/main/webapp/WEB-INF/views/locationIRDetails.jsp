@@ -53,8 +53,6 @@
 
 
 
-				<c:forEach items="${irdetails}" var="irDetail"
-					varStatus="indexStatus">
 
 
 					<thead>
@@ -80,21 +78,20 @@
 						</tr>
 						<tr>
 							<th>Meter Sr No</th>
-							<td>${irDetail.location.meterMaster.meterSrNo}</td>
+							<td>${irDetail.meter.meterSrNo}</td>
 
 						</tr>
 
 					</thead>
-					<c:set var="object" value="${irDetail}" />
-
-					<c:if test="${not empty object['class'].declaredFields}">
-						<c:forEach var="field" items="${object['class'].declaredFields}">
+				
+					<c:if test="${not empty irDetail['class'].declaredFields}">
+						<c:forEach var="field" items="${irDetail['class'].declaredFields}">
 							<c:catch>
 								<c:if test="${! fn:containsIgnoreCase(field.name, 'txn')  && (! fn:containsIgnoreCase(field.name, 'loc'))}">
 
 									<tr>
 										<td>${field.name}</td>
-										<td>${object[field.name]}</td>
+										<td>${irDetail[field.name]}</td>
 									</tr>
 								</c:if>
 							</c:catch>
@@ -102,16 +99,8 @@
 
 					</c:if>
 
-					<%-- 						<c:forEach items="${irdetail}" var="irDetailo" --%>
-					<%-- 							varStatus="indexStatus1"> --%>
-					<%-- 							<td>${irDetailo.key }</td> --%>
-					<%-- 							<td>${irDetailo.value }</td> --%>
-					<%-- 						</c:forEach> --%>
+				
 
-					</tr>
-
-
-				</c:forEach>
 			</table>
 					
 

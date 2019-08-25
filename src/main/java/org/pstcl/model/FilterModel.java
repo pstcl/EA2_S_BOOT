@@ -2,10 +2,10 @@ package org.pstcl.model;
 
 import java.util.List;
 
-import org.pstcl.ea.model.entity.CircleMaster;
-import org.pstcl.ea.model.entity.DivisionMaster;
-import org.pstcl.ea.model.entity.LocationMaster;
-import org.pstcl.ea.model.entity.SubstationMaster;
+import org.pstcl.ea.entity.CircleMaster;
+import org.pstcl.ea.entity.DivisionMaster;
+import org.pstcl.ea.entity.LocationMaster;
+import org.pstcl.ea.entity.SubstationMaster;
 
 public class FilterModel  {
 

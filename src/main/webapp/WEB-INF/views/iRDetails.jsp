@@ -57,6 +57,13 @@
 						<th>Date</th>
 						<th>Location Id</th>
 
+
+						<th>Meter ID</th>
+						
+						<th>Boundary Type</th>
+						<th>Feeder Name</th>
+						<th>Voltage Level</th>
+
 						<th>Station Name</th>
 						<th>Division Name</th>
 						<th>Circle Name</th>
@@ -67,6 +74,7 @@
 						<th>Phase A Current</th>
 						<th>Phase B Current</th>
 						<th>Phase C Current</th>
+						<th>Three Phase PF</th>
 					</tr>
 				</thead>
 
@@ -82,8 +90,12 @@
 
 								${irDetail.location.locationId } </a></td>
 
-						<td>${irDetail.location.meterMaster.meterSrNo}</td>
+						<td>${irDetail.meter.meterSrNo}</td>
 
+<td>${irDetail.location.boundaryTypeMaster.boundaryType}</td>
+						<td>${irDetail.location.feederMaster.feederName}</td>
+						<td>${irDetail.location.voltageLevel}</td>
+						
 
 						<td>${irDetail.location.substationMaster.stationName}</td>
 						<td>${irDetail.location.substationMaster.divisionMaster.divisionname}</td>
@@ -95,6 +107,9 @@
 						<td>${irDetail.phaseACurrent }</td>
 						<td>${irDetail.phaseBCurrent }</td>
 						<td>${irDetail.phaseCCurrent }</td>
+						<td>${irDetail.threePhasePF }</td>
+						
+						
 
 					</tr>
 				</c:forEach>

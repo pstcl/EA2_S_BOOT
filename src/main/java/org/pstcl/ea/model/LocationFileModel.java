@@ -3,13 +3,15 @@ package org.pstcl.ea.model;
 import java.util.Date;
 import java.util.List;
 
-import org.pstcl.ea.model.entity.FileMaster;
-import org.pstcl.ea.model.entity.LocationMaster;
+import org.pstcl.ea.entity.FileMaster;
+import org.pstcl.ea.entity.LocationMaster;
+import org.pstcl.ea.entity.mapping.MeterLocationMap;
 
 public class LocationFileModel {
 	
 	private LocationMaster locationMaster;
 	private List<FileMaster> fileMasters;
+	private List<MeterLocationMap> meterLocationMaps;
 	private Date startDate;
 	private Date endDate;
 	
@@ -37,6 +39,12 @@ public class LocationFileModel {
 	}
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+	public List<MeterLocationMap> getMeterLocationMaps() {
+		return meterLocationMaps;
+	}
+	public void setMeterLocationMaps(List<MeterLocationMap> meterLocationMaps) {
+		this.meterLocationMaps = meterLocationMaps;
 	}
 
 }

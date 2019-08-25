@@ -143,6 +143,9 @@ public class DateUtil {
 		return cal.getTime();
 	}
 
+	
+	
+	
 
 	public static Date startDateTimeForLoadSurveyFromFileDate(Date fileDate) {
 
@@ -174,6 +177,37 @@ public class DateUtil {
 
 		return cal.getTime();
 	}
+	
+	
+	public static Date startDateTimeForLoadSurveyFromDailyDate(Date dailyDate) {
+
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(dailyDate);
+
+		cal.add(Calendar.DAY_OF_MONTH, -1);
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 14);
+		cal.set(Calendar.SECOND, 1);
+		
+
+		return cal.getTime();
+	}
+
+	public static Date endDateTimeForLoadSurveyFromDailyDate(Date fileDate) {
+
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(fileDate);
+
+
+
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 5);
+		cal.set(Calendar.SECOND, 1);
+
+
+		return cal.getTime();
+	}
+
 
 	public static Date startDateTimeForDailyFromFileDate(Date fileDate) {
 
@@ -231,11 +265,38 @@ public class DateUtil {
 		return cal.getTime();
 	}
 
-
+	public static Date startOfTheDay(Date current) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(current);
+		calendar.set(Calendar.HOUR, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		current = calendar.getTime();
+		return current;
+	}
+	public static Date previousDay(Date current) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(current);
+		calendar.add(Calendar.DATE, -1);
+		calendar.set(Calendar.HOUR, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		current = calendar.getTime();
+		return current;
+	}
+	
 	public static Date nextDay(Date current) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(current);
 		calendar.add(Calendar.DATE, 1);
+		current = calendar.getTime();
+		return current;
+	}
+	
+	public static Date substractYear(Date current) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(current);
+		calendar.add(Calendar.YEAR, -1);
 		current = calendar.getTime();
 		return current;
 	}

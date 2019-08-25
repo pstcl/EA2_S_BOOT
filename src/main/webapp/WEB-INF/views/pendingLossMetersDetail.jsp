@@ -21,6 +21,32 @@
 		$(modelid).modal('toggle');
 
 	}
+	function getLocationFileDetails(locationid,month,year) {
+		
+		var reportParamsModel = {
+				"reportMonth" : month,
+				"reportYear" : year,
+				"location" : {"locationId":locationid}
+				
+			};
+//		"location" : locationid
+		$.ajax({
+			url : "getLocationFileDetails",
+			type : "POST",
+			data : JSON.stringify(reportParamsModel),
+			contentType : 'application/json',
+			success : function(response) {
+				$('#myModalDiv').html(response);
+
+				$('#myModal').modal('toggle');
+				
+			},
+			error : function(data, status, er) {
+				alert("Error" + data + er);
+			}
+		});
+
+	}
 </script>
 
 <%-- <c:url value='/previewOilReport-${oilReport.id}' /> --%>
@@ -78,7 +104,7 @@
 					<th style="width: 150px;">Meter Details</th>
 					<th>Boundary</th>
 
-					<th style="width: 350px;">Files Uploaded for the Period</th>
+
 					<sec:authorize
 						access="hasAnyRole('ROLE_SLDC_USER','ROLE_SLDC_ADMIN')">
 						<th>Add Data Manually</th>
@@ -93,52 +119,21 @@
 						<td>${locDetails.locationMaster.substationMaster.stationName}</td>
 						<td>${locDetails.locationMaster.locationId}</td>
 
-						<td>${locDetails.locationMaster.meterMaster.meterSrNo}</td>
+						<td><%@include file="snippets/pendinLocMeterDetails.jsp"%>
 						<td>${locDetails.locationMaster.boundaryTypeMaster.boundaryType}</td>
-						<td><c:if test="${fn:length(locDetails.fileMasters) gt 0}">
-								<button data-toggle="collapse"
-									data-target="#demo${indexStatus.index+1 }">FileDetails</button>
-							</c:if> <c:if test="${fn:length(locDetails.fileMasters) lt 1}">
-											No File Found	</c:if></td>
+						<td>
+							<button onclick="getLocationFileDetails('${locDetails.locationMaster.locationId}',${month},${year})">View CMRI Files</button>
+						</td>
+
 
 						<sec:authorize
 							access="hasAnyRole('ROLE_SLDC_USER','ROLE_SLDC_ADMIN')">
-							<td><a
-								title="${locDetails.locationMaster.locationId}"
+							<td><a title="${locDetails.locationMaster.locationId}"
 								href="javascript:window.location='addPendingLocData-${locDetails.locationMaster.locationId}?month=${month}&year=${year}'">
 									Add Data </a></td>
 						</sec:authorize>
 					</tr>
-					<c:if test="${fn:length(locDetails.fileMasters) gt 0}">
-						<tr>
-							<td></td>
-							<td colspan="8">
 
-								<div id="demo${indexStatus.index+1 }" class="collapse in">
-
-									<table class="table">
-										<tr>
-											<th>File Name</th>
-											<th>File Generation Date Time</th>
-											<th>Date of Uploading</th>
-											<th>No. of Daily(24 hr) Records</th>
-											<th>No. of Load Survey(15 min) Records in File</th>
-											<th>Uploaded By</th>
-											<th>Approved By</th>
-											<th>ProcessingStatus</th>
-											<th>Action</th>
-
-
-										</tr>
-										<c:forEach items="${locDetails.fileMasters}" var="fileDetails"
-											varStatus="indexStatus1">
-											<%@include file="substationHomeFileToolkit.jsp"%>
-										</c:forEach>
-									</table>
-								</div>
-							</td>
-						</tr>
-					</c:if>
 
 				</c:forEach>
 			</table>
@@ -148,7 +143,31 @@
 		</div>
 	</div>
 
+	<div class="modal fade" id="myModal">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content" style="width: 1000px; align-self: center;">
 
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">Files</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body">
+					<div id="myModalDiv"></div>
+				</div>
+
+
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
 
 
 </body>

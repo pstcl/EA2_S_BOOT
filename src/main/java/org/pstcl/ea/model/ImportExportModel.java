@@ -3,7 +3,7 @@ package org.pstcl.ea.model;
 import java.util.Date;
 import java.util.List;
 
-import org.pstcl.ea.model.entity.DailyTransaction;
+import org.pstcl.ea.entity.meterTxnEntity.DailyTransaction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class ImportExportModel extends EAFilter {

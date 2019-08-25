@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.pstcl.ea.dao.EAUserDao;
+import org.pstcl.ea.entity.EAUser;
 import org.pstcl.ea.model.EAFilter;
-import org.pstcl.ea.model.entity.EAUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;

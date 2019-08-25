@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.pstcl</groupId>
-	<artifactId>ea</artifactId>
+	<artifactId>eap</artifactId>
 	<version>3</version>
 	<packaging>war</packaging>
 
@@ -111,7 +111,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
-			
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -165,6 +165,13 @@
 			<artifactId>core</artifactId>
 			<version>3.7.0</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-collections4</artifactId>
+    <version>4.4</version>
+</dependency>
+		
 
 		<!-- https://mvnrepository.com/artifact/org.eclipse.birt.runtime/org.eclipse.birt.runtime -->
 		<dependency>

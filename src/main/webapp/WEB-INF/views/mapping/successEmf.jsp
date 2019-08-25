@@ -90,6 +90,7 @@
 			</tbody>
 		</table>
 	</div>
+	<%@include file="../reporting/locationImportExportSnippet.jsp"%>
 
 </body>
 </html>

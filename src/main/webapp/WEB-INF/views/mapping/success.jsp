@@ -134,6 +134,6 @@
 			</c:if>
 		</div>
 	</div>
-
+<%@include file="../reporting/locationImportExportSnippet.jsp"%>
 </body>
 </html>

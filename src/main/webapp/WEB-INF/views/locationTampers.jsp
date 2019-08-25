@@ -28,8 +28,7 @@
 
 	SS:${locationSurveyDataModel.locationMaster.substationMaster.stationName},
 	Feeder:${locationSurveyDataModel.locationMaster.feederMaster.feederName},
-	Boundary:${locationSurveyDataModel.locationMaster.boundaryTypeMaster.boundaryType},
-	Meter No:${locationSurveyDataModel.meterMaster.meterSrNo},</title>
+	Boundary:${locationSurveyDataModel.locationMaster.boundaryTypeMaster.boundaryType}</title>
 </head>
 
 <body onload="myFunction()" style="margin: 0;">
@@ -190,7 +189,7 @@
 							<td>Meter
 						Location:${tamperLogForMeter.location.feederMaster.feederName} 
 						${tamperLogForMeter.location.locationId}<br>Meter Details(Sr No:
-						${tamperLogForMeter.location.meterMaster.meterSrNo})(Make:${tamperLogForMeter.location.meterMaster.meterType})
+						${tamperLogForMeter.meter.meterSrNo})(Make:${tamperLogForMeter.meter.meterType})
 
 
 					</td>

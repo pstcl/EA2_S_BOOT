@@ -2,7 +2,7 @@ package org.pstcl.ea.converters;
 
 
 import org.pstcl.ea.dao.SubstationUtilityDao;
-import org.pstcl.ea.model.entity.DivisionMaster;
+import org.pstcl.ea.entity.DivisionMaster;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

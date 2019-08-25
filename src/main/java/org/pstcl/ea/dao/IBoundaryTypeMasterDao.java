@@ -1,8 +1,8 @@
 package org.pstcl.ea.dao;
 import java.util.List;
 
+import org.pstcl.ea.entity.BoundaryTypeMaster;
 import org.pstcl.ea.model.EAFilter;
-import org.pstcl.ea.model.entity.BoundaryTypeMaster;
 
 public interface IBoundaryTypeMasterDao {
 

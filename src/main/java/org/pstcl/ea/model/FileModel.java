@@ -2,8 +2,8 @@ package org.pstcl.ea.model;
 
 import java.util.List;
 
-import org.pstcl.ea.model.entity.FileMaster;
-import org.pstcl.ea.model.entity.MeterMaster;
+import org.pstcl.ea.entity.FileMaster;
+import org.pstcl.ea.entity.MeterMaster;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FileModel {

@@ -9,12 +9,16 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.LogicalExpression;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.pstcl.ea.dao.MeterLocationMapDao;
-import org.pstcl.ea.model.entity.EAUser;
-import org.pstcl.ea.model.entity.LocationMaster;
-import org.pstcl.ea.model.entity.MeterMaster;
-import org.pstcl.ea.model.mapping.MeterLocationMap;
+import org.pstcl.ea.entity.EAUser;
+import org.pstcl.ea.entity.LocationMaster;
+import org.pstcl.ea.entity.MeterMaster;
+import org.pstcl.ea.entity.SubstationMaster;
+import org.pstcl.ea.entity.mapping.MeterLocationMap;
+import org.pstcl.ea.model.EAFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +29,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @Repository("meterLocationMapRepository")
-@Transactional(value="sldcTxnManager")
 public class MeterLocationMapDaoImp implements MeterLocationMapDao {
 	//map
 	@Transactional(value="sldcTxnManager")
@@ -95,6 +98,7 @@ public class MeterLocationMapDaoImp implements MeterLocationMapDao {
 	}
 
 	@Override
+	@Transactional(value="sldcTxnManager")
 	public void save(MeterLocationMap txn,EAUser user) {
 		Session session=sessionFactory.openSession();
 		Transaction transaction=session.beginTransaction();
@@ -122,12 +126,35 @@ public class MeterLocationMapDaoImp implements MeterLocationMapDao {
 		if(locationId!=null) {
 			crit.add((Restrictions.eq("locationMaster.locationId", locationId)));
 		}
+		
+		
 
 		crit.add(Restrictions.le("startDate",current));
-		crit.add(Restrictions.gt("endDate",current));
+
+		Criterion rest4= Restrictions.gt("endDate",current);
+		Criterion rest5= Restrictions.isNull("endDate");
+		crit.add(Restrictions.or( rest4,rest5));
+
 		return (MeterLocationMap) crit.uniqueResult();
 
 	}
+	
+	@Override
+	@Transactional(value="sldcTxnManager")
+	public List<MeterLocationMap> getMapByLocationAndDate(LocationMaster locationMaster, Date startDateOftheMonth) {
+		Criteria crit = createEntityCriteria();
+		crit.add((Restrictions.eq("locationMaster.locationId", locationMaster.getLocationId())));
+		
+		//crit.add(Restrictions.le("startDate",current));
+
+
+		Criterion rest4= Restrictions.gt("endDate",startDateOftheMonth);
+		Criterion rest5= Restrictions.isNull("endDate");
+		crit.add(Restrictions.or( rest4,rest5));
+
+		return (List<MeterLocationMap>) crit.list();
+	}
+
 
 	@Override
 	@Transactional(value="sldcTxnManager")
@@ -181,5 +208,65 @@ public class MeterLocationMapDaoImp implements MeterLocationMapDao {
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.eq("meterMaster.meterSrNo", meterMaster.getMeterSrNo()));
 		return (List<MeterLocationMap>) crit.list();
+	}
+
+
+
+	@Override
+	@Transactional(value="sldcTxnManager")
+	public List<MeterLocationMap> findMeterLocationMapBySubstation(EAFilter entity) {
+		Criteria critLocationList = getSession().createCriteria(LocationMaster.class);
+		if(null!=entity)
+		{
+			if(null!=entity.getSubstation())
+			{
+				critLocationList.add(Restrictions.eq("substationMaster.ssCode", entity.getSubstation().getSsCode()));
+			}
+			if(null!=entity.getDivision())
+			{
+				critLocationList.add(Restrictions.eq("divisionMaster.divCode", entity.getDivision().getDivCode()));
+			}
+			if(null!=entity.getCircle())
+			{
+				critLocationList.add(Restrictions.eq("circleMaster.crCode", entity.getCircle().getCrCode()));
+			}
+		}
+
+		critLocationList.setProjection(Projections.property("locationId"));
+		
+		
+		List <String> locationIdList=critLocationList.list();
+
+		Criteria crit = createEntityCriteria();
+
+		if(locationIdList!=null){
+			if(locationIdList.size()>0)
+			{
+				crit.add((Restrictions.in("locationMaster.locationId", locationIdList)));
+			}
+			else
+			{
+				crit.add(Restrictions.sqlRestriction("(1=0)"));
+				
+			}
+		}
+		crit.addOrder(Order.asc("locationMaster.locationId"));
+		return (List<MeterLocationMap>) crit.list();
+	}
+	
+	private List<String> getLocationListBySubstation(SubstationMaster submaster) {
+		Criteria critLocationList = getSession().createCriteria(LocationMaster.class);
+		if(null!=submaster)
+		{
+			critLocationList.add(Restrictions.eq("substationMaster.ssCode", submaster.getSsCode()));
+		}
+		else
+		{
+			critLocationList.add(Restrictions.sqlRestriction("(1=0)"));
+			
+		}
+		critLocationList.setProjection(Projections.property("locationId"));
+		List <String> locationIdList=critLocationList.list();
+		return locationIdList;
 	}
 }

@@ -3,7 +3,7 @@ package org.pstcl.ea.security;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.pstcl.ea.model.entity.EAUser;
+import org.pstcl.ea.entity.EAUser;
 import org.pstcl.ea.service.impl.masters.UserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

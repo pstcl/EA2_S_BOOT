@@ -3,26 +3,33 @@ package org.pstcl.ea.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.pstcl.ea.dao.MeterLocationMapDao;
+import org.pstcl.ea.entity.CircleMaster;
+import org.pstcl.ea.entity.DivisionMaster;
+import org.pstcl.ea.entity.EAUser;
+import org.pstcl.ea.entity.FileMaster;
+import org.pstcl.ea.entity.LocationMaster;
+import org.pstcl.ea.entity.MeterMaster;
+import org.pstcl.ea.entity.SubstationMaster;
+import org.pstcl.ea.entity.mapping.MeterLocationMap;
 import org.pstcl.ea.model.EAFilter;
 import org.pstcl.ea.model.EAModel;
 import org.pstcl.ea.model.FileFilter;
 import org.pstcl.ea.model.FileModel;
 import org.pstcl.ea.model.LocationFileModel;
-import org.pstcl.ea.model.entity.CircleMaster;
-import org.pstcl.ea.model.entity.DivisionMaster;
-import org.pstcl.ea.model.entity.EAUser;
-import org.pstcl.ea.model.entity.FileMaster;
-import org.pstcl.ea.model.entity.LocationMaster;
-import org.pstcl.ea.model.entity.MeterMaster;
-import org.pstcl.ea.model.entity.SubstationMaster;
 import org.pstcl.ea.security.UserRole;
 import org.pstcl.ea.util.DateUtil;
 import org.pstcl.ea.util.EAUtil;
 import org.pstcl.model.FilterModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service("substationDataService")
 public class SubstationDataServiceImpl extends EnergyAccountsService{
+	
+
+	@Autowired
+	MeterLocationMapDao mtrLocMapDao;
 
 	public SubstationMaster findSubstationById(int ssCode) {
 		return substationUtilityDao.findSubstationByID(ssCode);
@@ -204,6 +211,9 @@ public class SubstationDataServiceImpl extends EnergyAccountsService{
 			locationFileModel.setLocationMaster(locationMaster);
 			filter.setLocation(locationMaster);
 			filter.setFileActionStatus(EAUtil.FILE_ACTION__APPROVED_AE);
+
+			List<MeterLocationMap> meterLocationMappingList = mtrLocMapDao.findMeterLocationMapByLoc(locationMaster.getLocationId());
+			locationFileModel.setMeterLocationMaps(meterLocationMappingList);
 			List<FileMaster> fileMasters=fileMasterDao.filterFiles(filter);
 			locationFileModel.setFileMasters(fileMasters);
 			list.add(locationFileModel);

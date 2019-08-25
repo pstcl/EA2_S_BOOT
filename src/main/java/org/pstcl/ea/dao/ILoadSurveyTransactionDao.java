@@ -3,13 +3,13 @@ package org.pstcl.ea.dao;
 import java.util.Date;
 import java.util.List;
 
+import org.pstcl.ea.entity.EAUser;
+import org.pstcl.ea.entity.LocationMaster;
+import org.pstcl.ea.entity.MeterMaster;
+import org.pstcl.ea.entity.SubstationMaster;
+import org.pstcl.ea.entity.meterTxnEntity.DailyTransaction;
+import org.pstcl.ea.entity.meterTxnEntity.jpa.LoadSurveyTransaction;
 import org.pstcl.ea.model.ImportExportModel;
-import org.pstcl.ea.model.entity.DailyTransaction;
-import org.pstcl.ea.model.entity.EAUser;
-import org.pstcl.ea.model.entity.LoadSurveyTransaction;
-import org.pstcl.ea.model.entity.LocationMaster;
-import org.pstcl.ea.model.entity.MeterMaster;
-import org.pstcl.ea.model.entity.SubstationMaster;
 
 
 public interface ILoadSurveyTransactionDao  {
@@ -27,5 +27,8 @@ public interface ILoadSurveyTransactionDao  {
 	void save(List<LoadSurveyTransaction> loadSurveyList, EAUser loggedInUser);
 	List<LoadSurveyTransaction> findLoadSurveyByDayAndLocation(LocationMaster location, Date transactionDate);
 	DailyTransaction sumLoadSurveyByDayAndLocation(LocationMaster location, Date transactionDate);
-	DailyTransaction sumLoadSurveyByDayAndMeter(MeterMaster meterMaster, Date transactionDate);
+	//DailyTransaction sumLoadSurveyByDayAndMeter(MeterMaster meterMaster, Date transactionDate);
+	DailyTransaction sumLoadSurveyByDayAndMeter(MeterMaster meterMaster, Date startDate, Date endDate);
+	//List<LoadSurveyTransaction> findLoadSurveyByDayAndLocation(LocationMaster location, Date startDate, Date endDate);
+	
 }

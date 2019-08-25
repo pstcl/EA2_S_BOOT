@@ -10,11 +10,11 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.pstcl.ea.dao.IMeterMasterDao;
+import org.pstcl.ea.entity.EAUser;
+import org.pstcl.ea.entity.LocationMaster;
+import org.pstcl.ea.entity.MeterMaster;
+import org.pstcl.ea.entity.mapping.MeterLocationMap;
 import org.pstcl.ea.model.EAFilter;
-import org.pstcl.ea.model.entity.EAUser;
-import org.pstcl.ea.model.entity.LocationMaster;
-import org.pstcl.ea.model.entity.MeterMaster;
-import org.pstcl.ea.model.mapping.MeterLocationMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -141,14 +141,14 @@ public class MeterMasterDaoImpl extends AbstractDaoSLDC<String, MeterMaster> imp
 
 
 
-	@Override
-	public MeterMaster findMeterForMonth(String locationid, int month, int year) {
-		Criteria critLocation = createEntityCriteria();
-		critLocation.add(Restrictions.eq("locationMaster.locationId", locationid));
-		
-		MeterMaster meter = (MeterMaster) critLocation.uniqueResult();
-		return meter;
-	}
+//	@Override
+//	public MeterMaster findMeterForMonth(String locationid, int month, int year) {
+//		Criteria critLocation = createEntityCriteria();
+//		critLocation.add(Restrictions.eq("locationMaster.locationId", locationid));
+//		
+//		MeterMaster meter = (MeterMaster) critLocation.uniqueResult();
+//		return meter;
+//	}
 
 
 @Override

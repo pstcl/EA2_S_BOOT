@@ -3,10 +3,12 @@ package org.pstcl.ea.dao;
 import java.util.Date;
 import java.util.List;
 
-import org.pstcl.ea.model.entity.EAUser;
-import org.pstcl.ea.model.entity.LocationMaster;
-import org.pstcl.ea.model.entity.MeterMaster;
-import org.pstcl.ea.model.mapping.MeterLocationMap;
+import org.pstcl.ea.entity.EAUser;
+import org.pstcl.ea.entity.LocationMaster;
+import org.pstcl.ea.entity.MeterMaster;
+import org.pstcl.ea.entity.SubstationMaster;
+import org.pstcl.ea.entity.mapping.MeterLocationMap;
+import org.pstcl.ea.model.EAFilter;
 
 public interface MeterLocationMapDao {
 
@@ -36,6 +38,12 @@ public interface MeterLocationMapDao {
 	List<MeterLocationMap> findLocations(MeterMaster meterMaster);
 
 	List<MeterLocationMap> findMappingHistory(MeterMaster meterMaster, LocationMaster locationMaster);
+
+	List<MeterLocationMap> getMapByLocationAndDate(LocationMaster locationMaster, Date startDateOftheMonth);
+
+	//List<MeterLocationMap> findMeterLocationMapBySubstation(SubstationMaster submaster);
+
+	List<MeterLocationMap> findMeterLocationMapBySubstation(EAFilter entity);
 
 	
 

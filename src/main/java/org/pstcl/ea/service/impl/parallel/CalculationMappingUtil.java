@@ -4,12 +4,19 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-import org.pstcl.ea.model.entity.DailyTransaction;
-import org.pstcl.ea.model.entity.FileMaster;
-import org.pstcl.ea.model.mapping.LocationMFMap;
-import org.pstcl.ea.model.mapping.MeterLocationMap;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import org.pstcl.ea.entity.FileMaster;
+import org.pstcl.ea.entity.Transaction;
+import org.pstcl.ea.entity.mapping.LocationMFMap;
+import org.pstcl.ea.entity.mapping.MeterLocationMap;
+import org.pstcl.ea.entity.meterTxnEntity.DailyTransaction;
 import org.pstcl.ea.util.DateUtil;
 import org.pstcl.ea.util.EAUtil;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class CalculationMappingUtil {
 
@@ -22,6 +29,8 @@ public class CalculationMappingUtil {
 		setDailyTxnLocationMF( locationEMFList, dailyTransaction);
 	}
 	public void setDailyTxnLocation(List<MeterLocationMap> mtrLocMapList,   DailyTransaction dailyTransaction) {
+		dailyTransaction.setLocation(null);
+		dailyTransaction.setMeterLocationMap(null);
 
 		if (null!= mtrLocMapList)
 		{
@@ -55,8 +64,11 @@ public class CalculationMappingUtil {
 
 
 	public void setDailyTxnLocationMF( List<LocationMFMap> locationEMFList,  DailyTransaction dailyTransaction) {
-
-
+	
+		dailyTransaction.setExternalMFMap(null);
+		dailyTransaction.setExternalMF(null);
+		dailyTransaction.setNetWHSign(null);
+	
 		if(null!=dailyTransaction.getLocation())
 		{
 
@@ -97,11 +109,18 @@ public class CalculationMappingUtil {
 			}
 
 		}
+		
 
 
 	}
 
 	public DailyTransaction calculateImportExport(DailyTransaction dailyTransaction) {
+		
+		dailyTransaction.setExportBoundaryPtMWH(null);
+		dailyTransaction.setImportBoundaryPtMWH(null);
+		dailyTransaction.setBoundaryPtImportExportDifferenceMWH(null);
+		dailyTransaction.setNetMWH(null);
+		
 		BigDecimal emf=dailyTransaction.getExternalMF();
 
 		if (null != dailyTransaction.getExportWHF() && null != dailyTransaction.getImportWHF()
@@ -156,5 +175,69 @@ public class CalculationMappingUtil {
 	}
 
 
+
+	public void setTransactionLocationFromMeter(List<MeterLocationMap> mtrLocMapList,   Transaction eaTransaction) {
+
+		eaTransaction.setLocation(null);
+		eaTransaction.setMeterLocationMap(null);
+
+		
+		if (null!= mtrLocMapList)
+		{
+			if( mtrLocMapList.size()==1)
+			{
+				eaTransaction.setLocation(mtrLocMapList.get(0).getLocationMaster());
+				eaTransaction.setMeterLocationMap(mtrLocMapList.get(0));
+			}
+			else if(mtrLocMapList.size()>1)
+			{
+				for (MeterLocationMap locationMap : mtrLocMapList) {
+					if(null!=locationMap.getEndDate()&&(locationMap.getEndDate().compareTo(eaTransaction.getTransactionDate())>=0)&&(locationMap.getStartDate().compareTo(eaTransaction.getTransactionDate())<=0))
+					{
+						eaTransaction.setLocation(locationMap.getLocationMaster());
+						eaTransaction.setMeterLocationMap(locationMap);
+
+					}
+					else if(null==locationMap.getEndDate()&&(locationMap.getStartDate().compareTo(eaTransaction.getTransactionDate())<=0))
+					{
+						eaTransaction.setLocation(locationMap.getLocationMaster());
+						eaTransaction.setMeterLocationMap(locationMap);
+
+					}
+
+				}
+
+			}
+
+		}
+	}
+	public void setFileLocationFromMeter(List<MeterLocationMap> mtrLocMapList,   FileMaster fileMaster) {
+
+		fileMaster.setLocation(null);
+		
+		if (null!= mtrLocMapList)
+		{
+			if( mtrLocMapList.size()==1)
+			{
+				fileMaster.setLocation(mtrLocMapList.get(0).getLocationMaster());
+			}
+			else if(mtrLocMapList.size()>1)
+			{
+				for (MeterLocationMap locationMap : mtrLocMapList) {
+					if(null!=locationMap.getEndDate()&&(locationMap.getEndDate().compareTo(fileMaster.getTransactionDate())>=0)&&(locationMap.getStartDate().compareTo(fileMaster.getTransactionDate())<=0))
+					{
+						fileMaster.setLocation(locationMap.getLocationMaster());
+					}
+					else if(null==locationMap.getEndDate()&&(locationMap.getStartDate().compareTo(fileMaster.getTransactionDate())<=0))
+					{
+						fileMaster.setLocation(locationMap.getLocationMaster());
+					}
+
+				}
+
+			}
+
+		}
+	}
 
 }

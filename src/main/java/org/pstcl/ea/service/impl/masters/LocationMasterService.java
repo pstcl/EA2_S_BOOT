@@ -5,9 +5,10 @@ import java.util.Set;
 
 import org.pstcl.ea.dao.ILocationMasterDao;
 import org.pstcl.ea.dao.SubstationUtilityDao;
-import org.pstcl.ea.model.entity.LocationMaster;
-import org.pstcl.ea.model.entity.SubstationMaster;
+import org.pstcl.ea.entity.LocationMaster;
+import org.pstcl.ea.entity.SubstationMaster;
 import org.pstcl.ea.model.mapping.LocationEMFModel;
+import org.pstcl.ea.model.reporting.ReportParametersModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -102,6 +103,16 @@ public class LocationMasterService {
 		}
 		// TODO Auto-generated method stub
 		return error;	}
+
+	public LocationMaster getLocation(String locationId) {
+		// TODO Auto-generated method stub
+		return locationMasterDao.findById(locationId);
+	}
+
+	public void getReport(ReportParametersModel parametersModel) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	
 

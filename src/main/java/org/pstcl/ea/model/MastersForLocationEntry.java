@@ -2,9 +2,9 @@ package org.pstcl.ea.model;
 
 import java.util.List;
 
-import org.pstcl.ea.model.entity.BoundaryTypeMaster;
-import org.pstcl.ea.model.entity.DeviceTypeMaster;
-import org.pstcl.ea.model.entity.FeederMaster;
+import org.pstcl.ea.entity.BoundaryTypeMaster;
+import org.pstcl.ea.entity.DeviceTypeMaster;
+import org.pstcl.ea.entity.FeederMaster;
 
 public class MastersForLocationEntry {
 

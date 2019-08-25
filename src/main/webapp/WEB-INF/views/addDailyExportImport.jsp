@@ -80,6 +80,10 @@
 			<form:form id="saveDailyTxForm" action="saveDailyTxSS" method="POST"
 				modelAttribute="dailyTransactionModel" class="form-horizontal">
 
+
+				<form:hidden path="locationMaster"
+					value="${dailyTransactionModel.locationMaster.locationId}"></form:hidden>
+
 				<form:hidden path="meterMaster"
 					value="${dailyTransactionModel.meterMaster.meterSrNo}"></form:hidden>
 				<form:hidden path="startDate"
@@ -105,8 +109,7 @@
 				</div>
 
 				<span class="lead">Energy Meters Master Daily Data for
-					Location-${ locationSurveyDataModel.locationMaster.locationId} 
-					<sec:authorize
+					Location-${ locationSurveyDataModel.locationMaster.locationId} <sec:authorize
 						access="hasAnyRole('ROLE_SLDC_ADMIN')">
 						<a title="${dailyTransactionModel.locationMaster.locationId}"
 							href="javascript:window.location='editPendingLocData-${dailyTransactionModel.locationMaster.locationId}?month=${month}&year=${year}'">
@@ -137,7 +140,7 @@
 
 
 							<td>
-								${dailyTransactionForMeter.location.meterMaster.meterSrNo}</td>
+								${dailyTransactionForMeter.meter.meterSrNo}</td>
 
 							<td><fmt:formatDate
 									value="${dailyTransactionForMeter.transactionDate}"
@@ -157,7 +160,22 @@
 										name="<c:out value="${status.expression}"/>"
 										id="<c:out value="${status.expression}"/>"
 										value="<c:out value="${status.value}"/>" />
-								</spring:bind> <spring:bind
+								</spring:bind> 
+								<spring:bind
+									path="dailyTransactions[${indexStatus.index}].meter.meterSrNo">
+									<input type="hidden"
+										name="<c:out value="${status.expression}"/>"
+										id="<c:out value="${status.expression}"/>"
+										value="<c:out value="${status.value}"/>" />
+								</spring:bind> 
+								<spring:bind
+									path="dailyTransactions[${indexStatus.index}].transactionStatus">
+									<input type="hidden"
+										name="<c:out value="${status.expression}"/>"
+										id="<c:out value="${status.expression}"/>"
+										value="<c:out value="${status.value}"/>" />
+								</spring:bind>
+								<spring:bind
 									path="dailyTransactions[${indexStatus.index}].transactionDate">
 									<input type="hidden"
 										name="<c:out value="${status.expression}"/>"
@@ -183,7 +201,10 @@
 										id="<c:out value="${status.expression}"/>"><c:out
 											value="${status.value}" />
 															</textarea>
-								</spring:bind></td>
+								</spring:bind>
+								
+								
+								</td>
 						</tr>
 
 					</c:forEach>

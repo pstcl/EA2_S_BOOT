@@ -83,11 +83,6 @@
 		<td>${location.locationMaster.externalPTRation}</td>
 	</tr>
 
-	<!-- 	<tr> -->
-	<!-- 		<th>External MF</th> -->
-	<%-- 		<td>${location.externalMF}</td> --%>
-	<!-- 	</tr> -->
-
 	<tr>
 		<th>CT Accuracy</th>
 		<td>${location.meterMaster.CTAccuracy}</td>

@@ -8,10 +8,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.pstcl.ea.entity.EAUser;
+import org.pstcl.ea.entity.FileMaster;
 import org.pstcl.ea.model.CMRIFileDataModel;
 import org.pstcl.ea.model.FileModel;
-import org.pstcl.ea.model.entity.EAUser;
-import org.pstcl.ea.model.entity.FileMaster;
 import org.pstcl.ea.security.UserRole;
 import org.pstcl.ea.service.impl.parallel.DataReaderThread;
 import org.pstcl.ea.service.impl.parallel.DataService;

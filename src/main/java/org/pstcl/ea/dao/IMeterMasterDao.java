@@ -2,10 +2,10 @@ package org.pstcl.ea.dao;
 
 import java.util.List;
 
+import org.pstcl.ea.entity.EAUser;
+import org.pstcl.ea.entity.LocationMaster;
+import org.pstcl.ea.entity.MeterMaster;
 import org.pstcl.ea.model.EAFilter;
-import org.pstcl.ea.model.entity.EAUser;
-import org.pstcl.ea.model.entity.LocationMaster;
-import org.pstcl.ea.model.entity.MeterMaster;
 
 
 public interface IMeterMasterDao {
@@ -14,7 +14,7 @@ public interface IMeterMasterDao {
 	List<MeterMaster> findAllMeterMasters();
 	List<MeterMaster> findAllMeterMasters(EAFilter filterModel);
 	void save(MeterMaster meter, EAUser user);
-	MeterMaster findMeterForMonth(String locationid, int month, int year);
+	//MeterMaster findMeterForMonth(String locationid, int month, int year);
 	List<MeterMaster> findMeterWithNoMapping();
 	List<String> findDistinctMeterMake();
 	List<String> findDistinctMeterType();

@@ -9,12 +9,12 @@ import org.pstcl.ea.dao.ILocationEMFDao;
 import org.pstcl.ea.dao.ILocationMasterDao;
 import org.pstcl.ea.dao.IMeterMasterDao;
 import org.pstcl.ea.dao.MeterLocationMapDao;
+import org.pstcl.ea.entity.LocationMaster;
+import org.pstcl.ea.entity.MeterMaster;
+import org.pstcl.ea.entity.mapping.LocationMFMap;
+import org.pstcl.ea.entity.mapping.MeterLocationMap;
+import org.pstcl.ea.entity.meterTxnEntity.DailyTransaction;
 import org.pstcl.ea.model.LocationSurveyDataModel;
-import org.pstcl.ea.model.entity.DailyTransaction;
-import org.pstcl.ea.model.entity.LocationMaster;
-import org.pstcl.ea.model.entity.MeterMaster;
-import org.pstcl.ea.model.mapping.LocationMFMap;
-import org.pstcl.ea.model.mapping.MeterLocationMap;
 import org.pstcl.ea.service.impl.parallel.CalculationMappingUtil;
 import org.pstcl.ea.util.DateUtil;
 import org.pstcl.ea.util.EAUtil;
@@ -68,9 +68,12 @@ public class DailyTxnService extends EnergyAccountsService{
 				}
 				if(meterMaster!=null)
 				{
-					dailyTransactionFromLoadSurvey=loadSurveyTransactionDao.sumLoadSurveyByDayAndMeter(meterMaster, current);
+					Date startDateLoadSurvey=DateUtil.startDateTimeForLoadSurveyFromDailyDate(current);
+					Date endDateLoadSurvey=DateUtil.endDateTimeForLoadSurveyFromDailyDate(current);
+					dailyTransactionFromLoadSurvey=loadSurveyTransactionDao.sumLoadSurveyByDayAndMeter(meterMaster, startDateLoadSurvey,endDateLoadSurvey);
 				}
 				dailyTransaction=new DailyTransaction();
+				dailyTransaction.setMeter(meterMaster);
 				dailyTransaction.setTransactionDate(current);
 				dailyTransaction.setLocation(locationMaster);
 				if(dailyTransactionFromLoadSurvey!=null)
@@ -78,12 +81,17 @@ public class DailyTxnService extends EnergyAccountsService{
 					dailyTransaction.setExportWHF(dailyTransactionFromLoadSurvey.getExportWHF());
 					dailyTransaction.setImportWHF(dailyTransactionFromLoadSurvey.getImportWHF());
 					dailyTransaction.setRemarks(EAUtil.DAILY_TRANSACTION_FROM_LOAD_SURVEY);
+					dailyTransaction.setTransactionStatus(EAUtil.DAILY_TRANSACTION_CALC_FROM_LOAD_SURVEY);
+					
 				}
 				else
 				{
 					dailyTransaction.setExportWHF(new BigDecimal(0));
 					dailyTransaction.setImportWHF(new BigDecimal(0));
+					
 					dailyTransaction.setRemarks(EAUtil.DAILY_TRANSACTION_ENTERED_MANUALLY);
+					dailyTransaction.setTransactionStatus(EAUtil.DAILY_TRANSACTION_ADDED_MANUALLY);
+					
 				}
 			}
 			dailyTransactions.add(dailyTransaction);
@@ -98,7 +106,7 @@ public class DailyTxnService extends EnergyAccountsService{
 
 		LocationSurveyDataModel locationSurveyDataModel=new LocationSurveyDataModel();
 		LocationMaster locationMaster=locationMasterDao.findById(locationId);
-		MeterMaster  meterMaster=meterDao.findMeterForMonth(locationId, month, year);
+		MeterMaster  meterMaster=null;
 		locationSurveyDataModel.setLocationMaster(locationMaster);
 		locationSurveyDataModel.setMeterMaster(meterMaster);
 
@@ -110,6 +118,11 @@ public class DailyTxnService extends EnergyAccountsService{
 		for(Date current = startDate;!current.after(endDate);current =DateUtil.nextDay(current))
 		{
 			DailyTransaction dailyTransaction=dailyTransactionDao.findByLocationDateCombo(locationMaster, current);
+			MeterLocationMap  meterLocationMap=mtrLocMappingDao.findMeterLocationMapByDate(locationId, current);
+			if(meterLocationMap!=null)
+			{
+				meterMaster=meterLocationMap.getMeterMaster();
+			}
 			if(null==dailyTransaction)
 			{	
 				dailyTransaction=new DailyTransaction();
@@ -117,6 +130,7 @@ public class DailyTxnService extends EnergyAccountsService{
 				dailyTransaction.setLocation(locationMaster);
 				dailyTransaction.setExportWHF(new BigDecimal(0));
 				dailyTransaction.setImportWHF(new BigDecimal(0));
+				dailyTransaction.setMeter(meterMaster);
 			}
 			dailyTransaction.setRemarks(EAUtil.DAILY_TRANSACTION_ENTERED_MANUALLY);
 			dailyTransactions.add(dailyTransaction);
@@ -135,13 +149,13 @@ public class DailyTxnService extends EnergyAccountsService{
 
 
 		Date startDateOfMonth=		dailyTransactionModel.getStartDate();
-		List<MeterLocationMap> mtrLocMapList =  mtrLocMappingDao.getLocationByMeterAndDate(dailyTransactionModel.getMeterMaster(),startDateOfMonth);
+		List<MeterLocationMap> mtrLocMapList =  mtrLocMappingDao.getMapByLocationAndDate(dailyTransactionModel.getLocationMaster(), startDateOfMonth);
 
 		List<LocationMFMap> locationEMFList=locEmfDao.findLocationEmfByLocAndDate(mtrLocMapList, startDateOfMonth); 
 
 		for (DailyTransaction dailyTransaction : dailyTransactions) {
 
-			dailyTransaction.setTransactionStatus(EAUtil.DAILY_TRANSACTION_ADDED_MANUALLY);
+			//dailyTransaction.setTransactionStatus(EAUtil.DAILY_TRANSACTION_ADDED_MANUALLY);
 			calculationMappingUtil.setDailyTxnLocationAndMF(mtrLocMapList, locationEMFList, dailyTransaction);
 			calculationMappingUtil.calculateImportExport(dailyTransaction);
 		}

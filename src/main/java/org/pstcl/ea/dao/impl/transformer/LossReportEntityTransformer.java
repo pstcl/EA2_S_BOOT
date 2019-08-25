@@ -3,7 +3,7 @@ package org.pstcl.ea.dao.impl.transformer;
 import java.util.List;
 
 import org.hibernate.transform.AliasToBeanResultTransformer;
-import org.pstcl.ea.model.entity.LossReportEntity;
+import org.pstcl.ea.entity.LossReportEntity;
 
 public class LossReportEntityTransformer extends AliasToBeanResultTransformer {
 	private 

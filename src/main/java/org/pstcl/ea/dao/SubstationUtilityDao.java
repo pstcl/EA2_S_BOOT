@@ -2,11 +2,11 @@ package org.pstcl.ea.dao;
 
 import java.util.List;
 
+import org.pstcl.ea.entity.CircleMaster;
+import org.pstcl.ea.entity.DivisionMaster;
+import org.pstcl.ea.entity.LocationMaster;
+import org.pstcl.ea.entity.SubstationMaster;
 import org.pstcl.ea.model.EAModel;
-import org.pstcl.ea.model.entity.CircleMaster;
-import org.pstcl.ea.model.entity.DivisionMaster;
-import org.pstcl.ea.model.entity.LocationMaster;
-import org.pstcl.ea.model.entity.SubstationMaster;
 import org.pstcl.model.FilterModel;
 
 public interface SubstationUtilityDao {

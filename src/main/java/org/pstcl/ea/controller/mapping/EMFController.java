@@ -1,9 +1,6 @@
 package org.pstcl.ea.controller.mapping;
 
-import java.util.Date;
-
 import org.pstcl.ea.model.mapping.LocationEMFModel;
-import org.pstcl.ea.model.mapping.LocationMFMap;
 import org.pstcl.ea.service.impl.masters.EMFMappingService;
 import org.pstcl.ea.service.impl.masters.LocationMasterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,23 +48,39 @@ public class EMFController {
 			ModelMap model) {
 
 		String returnView = "mapping/successEmf";
-
+		
+		
 		String error= emfMappingService.validate(locationEMFModel);
+		if (error==null)
+		{
+			LocationEMFModel locationEMFModel2=emfMappingService.saveDetailsOfLocationEmf(locationEMFModel);
+			if (!locationEMFModel2.getMappingSuccesful()) {
+				
+				error = "Problem while Saving Details.";
+				model.addAttribute("error", error);
+				model.addAttribute("list",emfMappingService.getLocationEmfListByLocid(locationEMFModel.getLocationMaster().getLocationId()));
+				
+				returnView = "mapping/locationEmfForm";
+			} 
+			else
+			{
+				model.addAttribute("list",
+						emfMappingService.getLocationEmfListByLocid(locationEMFModel.getLocationMaster().getLocationId()));
+				model.addAttribute("locationSurveyDataModel",
+						locationEMFModel2.getLocationSurveyDataModel());
+				
+				
+				
 
+			}
+
+		}
 		if (error != null) {
 			model.addAttribute("locationEMFModel", locationEMFModel);
 			model.addAttribute("error", error);
-			returnView = "mapping/locationEmfForm";
-		}
-		else if (!emfMappingService.saveDetailsOfLocationEmf(locationEMFModel)) {
-			error = "Problem while Saving Details";
-			returnView = "mapping/locationEmfForm";
-		} 
-		else
-		{
-			model.addAttribute("list",
-					emfMappingService.getLocationEmfListByLocid(locationEMFModel.getLocationMaster().getLocationId()));
+			model.addAttribute("list",emfMappingService.getLocationEmfListByLocid(locationEMFModel.getLocationMaster().getLocationId()));
 
+			returnView = "mapping/locationEmfForm";
 		}
 
 		return new ModelAndView(returnView, model);

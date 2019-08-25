@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.pstcl.ea.model.entity.UserEntityPasswordChange;
+import org.pstcl.ea.entity.UserEntityPasswordChange;
 import org.pstcl.ea.service.impl.SubstationDataServiceImpl;
 import org.pstcl.ea.service.impl.masters.UserServiceImpl;
 import org.pstcl.ea.util.EAUtil;

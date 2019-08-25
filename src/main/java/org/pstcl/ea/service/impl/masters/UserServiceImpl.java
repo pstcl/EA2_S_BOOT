@@ -4,8 +4,8 @@ import java.util.Collection;
 import java.util.Date;
 
 import org.pstcl.ea.dao.EAUserDao;
-import org.pstcl.ea.model.entity.EAUser;
-import org.pstcl.ea.model.entity.UserEntityPasswordChange;
+import org.pstcl.ea.entity.EAUser;
+import org.pstcl.ea.entity.UserEntityPasswordChange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;

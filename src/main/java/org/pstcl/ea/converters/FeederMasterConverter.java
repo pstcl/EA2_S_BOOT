@@ -1,7 +1,7 @@
 package org.pstcl.ea.converters;
 
 import org.pstcl.ea.dao.IFeederMasterDao;
-import org.pstcl.ea.model.entity.FeederMaster;
+import org.pstcl.ea.entity.FeederMaster;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -6,9 +6,9 @@ import java.util.List;
 import javax.persistence.Transient;
 
 import org.pstcl.ea.dao.IMeterMasterDao;
+import org.pstcl.ea.entity.LocationMaster;
+import org.pstcl.ea.entity.MeterMaster;
 import org.pstcl.ea.model.MastersForLocationEntry;
-import org.pstcl.ea.model.entity.LocationMaster;
-import org.pstcl.ea.model.entity.MeterMaster;
 import org.pstcl.ea.model.mapping.LocationMeterMappingModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

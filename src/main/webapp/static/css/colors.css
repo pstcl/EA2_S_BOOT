@@ -29,13 +29,13 @@ body {
 	
 }
 a {
-	color: #EB6864;
+	color: #0080c0;
 	text-decoration: none;
 	background-color: transparent
 }
 
 a:hover {
-	color: #e22620;
+	color: #0080ff;
 	text-decoration: underline
 }
 input:invalid {
@@ -90,7 +90,7 @@ input:invalid {
 }
 
 .nav {
-  background-color: #ff2e2e;
+  background-color:#bdc3c7;
 }
 
 .navbar-light .navbar-nav .nav-link {

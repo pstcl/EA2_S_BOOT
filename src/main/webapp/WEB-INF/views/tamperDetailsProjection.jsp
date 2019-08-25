@@ -104,12 +104,9 @@
 					<td>${tamperDetails.locationMaster.deviceTypeMaster.deviceType}</td>
 
 					<td>${tamperDetails.locationMaster.feederMaster.feederName}</td>
-					<td>Meter
+					<td>
 						Location:${tamperDetails.locationMaster.feederMaster.feederName}
-						${tamperDetails.locationMaster.locationId} <br>Meter
-						Details(Sr No:
-						${tamperDetails.locationMaster.meterMaster.meterSrNo})(Make:${tamperDetails.locationMaster.meterMaster.meterType})
-
+						${tamperDetails.locationMaster.locationId} 
 
 					</td>
 

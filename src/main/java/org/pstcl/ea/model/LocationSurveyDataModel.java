@@ -3,15 +3,16 @@ package org.pstcl.ea.model;
 import java.util.Date;
 import java.util.List;
 
-import org.pstcl.ea.model.entity.DailyTransaction;
-import org.pstcl.ea.model.entity.LoadSurveyTransaction;
-import org.pstcl.ea.model.entity.LocationMaster;
-import org.pstcl.ea.model.entity.MeterMaster;
-import org.pstcl.ea.model.entity.TamperLogTransaction;
+import org.pstcl.ea.entity.LocationMaster;
+import org.pstcl.ea.entity.MeterMaster;
+import org.pstcl.ea.entity.meterTxnEntity.DailyTransaction;
+import org.pstcl.ea.entity.meterTxnEntity.TamperLogTransaction;
+import org.pstcl.ea.entity.meterTxnEntity.jpa.LoadSurveyTransaction;
 
 public class LocationSurveyDataModel {
 	
 	private List<DailyTransaction> dailyTransactions;
+	
 	private List<TamperLogTransaction> tamperLogTransactions;
 	
 	private Date endDate;

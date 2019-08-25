@@ -3,15 +3,15 @@ package org.pstcl.ea.dao;
 import java.util.Date;
 import java.util.List;
 
+import org.pstcl.ea.entity.LocationMaster;
+import org.pstcl.ea.entity.LossReportEntity;
 import org.pstcl.ea.model.EAFilter;
-import org.pstcl.ea.model.entity.LocationMaster;
-import org.pstcl.ea.model.entity.LossReportEntity;
 
 public interface ILossReportDao {
 
 	
 	
-	List<LossReportEntity> getDailyTransactionsProjection(String reportCriteria, Date startDate, Date endDate);
+	//List<LossReportEntity> getDailyTransactionsProjection(String reportCriteria, Date startDate, Date endDate);
 
 	//List<LossReportEntity> getLossReportEntries(String reportCriteria, Date startDate, Date endDate);
 
@@ -25,6 +25,9 @@ public interface ILossReportDao {
 	List<LocationMaster> findPendingLocations(EAFilter entity, Integer month, Integer year);
 
 	LossReportEntity getDailyTransactionsProjectionSumEntity(String reportType, Date startDate, Date endDate);
+
+	
+	List<LossReportEntity> getDailyTransactionsProjection(String reportCriteria, Date startDate, Date endDate);
 
 
 }

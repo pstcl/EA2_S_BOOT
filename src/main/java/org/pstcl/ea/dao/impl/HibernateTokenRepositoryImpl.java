@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
-import org.pstcl.ea.model.entity.PersistentLogin;
+import org.pstcl.ea.entity.PersistentLogin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.web.authentication.rememberme.PersistentRememberMeToken;

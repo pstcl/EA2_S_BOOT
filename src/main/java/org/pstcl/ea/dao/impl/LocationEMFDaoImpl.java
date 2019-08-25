@@ -12,10 +12,10 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.ConstraintViolationException;
 import org.pstcl.ea.dao.ILocationEMFDao;
-import org.pstcl.ea.model.entity.EAUser;
-import org.pstcl.ea.model.entity.InstantRegisters;
-import org.pstcl.ea.model.mapping.LocationMFMap;
-import org.pstcl.ea.model.mapping.MeterLocationMap;
+import org.pstcl.ea.entity.EAUser;
+import org.pstcl.ea.entity.mapping.LocationMFMap;
+import org.pstcl.ea.entity.mapping.MeterLocationMap;
+import org.pstcl.ea.entity.meterTxnEntity.InstantRegisters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,10 +58,8 @@ public class LocationEMFDaoImpl implements ILocationEMFDao {
 
 
 	@Override
-	public void deleteById(String id) {
-		Criteria crit = createEntityCriteria();
-		crit.add(Restrictions.eq("id", id));
-		LocationMFMap txn = (LocationMFMap)crit.uniqueResult();
+	public void deleteById(Integer id) {
+		LocationMFMap txn = getSession().get(LocationMFMap.class, id);
 		getSession().delete(txn);
 	}
 
@@ -168,7 +166,7 @@ public class LocationEMFDaoImpl implements ILocationEMFDao {
 			crit.add((Restrictions.eq("locationMaster.locationId", locationId)));
 		}
 		if(startDateOftheMonth!=null) {
-			Criterion rest4= Restrictions.gt("endDate",startDateOftheMonth);
+			Criterion rest4= Restrictions.ge("endDate",startDateOftheMonth);
 			Criterion rest5= Restrictions.isNull("endDate");
 			crit.add(Restrictions.or( rest4,rest5));
 		}
@@ -198,6 +196,9 @@ public class LocationEMFDaoImpl implements ILocationEMFDao {
 		return (List<LocationMFMap>) crit.list();
 
 	}
+	
+	
+	
 	@Override
 	public LocationMFMap findLocationRecentEmf(String locationId) {
 		Criteria crit = createEntityCriteria();
@@ -207,18 +208,30 @@ public class LocationEMFDaoImpl implements ILocationEMFDao {
 	}
 
 
+//	@Override
+//	@Transactional(value="sldcTxnManager")
+//	public List<LocationMFMap> find(LocationMFMap newEmf) {
+//		Criteria crit = createEntityCriteria();
+//		crit.add((Restrictions.eq("locationMaster.locationId", newEmf.getLocationMaster().getLocationId())));
+//		crit.add((Restrictions.eq("startDate", newEmf.getStartDate())));
+//		crit.add((Restrictions.eq("externalMF", newEmf.getExternalMF())));
+//		crit.add((Restrictions.eq("netWHSign", newEmf.getNetWHSign())));
+//		List <LocationMFMap> list = (List<LocationMFMap>) crit.list();
+//		return list;
+//
+//	}
+
 	@Override
 	@Transactional(value="sldcTxnManager")
-	public boolean find(LocationMFMap newEmf) {
+	public LocationMFMap findSimiliarEMF(LocationMFMap newEmf) {
 		Criteria crit = createEntityCriteria();
 		crit.add((Restrictions.eq("locationMaster.locationId", newEmf.getLocationMaster().getLocationId())));
 		crit.add((Restrictions.eq("startDate", newEmf.getStartDate())));
+		crit.add((Restrictions.eq("endDate", newEmf.getEndDate())));
 		crit.add((Restrictions.eq("externalMF", newEmf.getExternalMF())));
 		crit.add((Restrictions.eq("netWHSign", newEmf.getNetWHSign())));
-		List <LocationMFMap> list = (List<LocationMFMap>) crit.list();
-		if(list!=null && list.size()>0)
-			return true;
-		return false;
+		//List <LocationMFMap> list = (List<LocationMFMap>) crit.list();
+		return (LocationMFMap) crit.uniqueResult();
 
 	}
 }

@@ -3,9 +3,9 @@ package org.pstcl.ea.dao;
 import java.util.Date;
 import java.util.List;
 
-import org.pstcl.ea.model.entity.EAUser;
-import org.pstcl.ea.model.mapping.LocationMFMap;
-import org.pstcl.ea.model.mapping.MeterLocationMap;
+import org.pstcl.ea.entity.EAUser;
+import org.pstcl.ea.entity.mapping.LocationMFMap;
+import org.pstcl.ea.entity.mapping.MeterLocationMap;
 
 
 public interface ILocationEMFDao {
@@ -16,7 +16,7 @@ public interface ILocationEMFDao {
 
 
 
-	void deleteById(String id);
+	void deleteById(Integer i);
 
 	void save(LocationMFMap txn, EAUser user);
 
@@ -39,7 +39,11 @@ public interface ILocationEMFDao {
 
 
 
-	boolean find(LocationMFMap newEmf);
+	//List<LocationMFMap> find(LocationMFMap newEmf);
+
+
+
+	LocationMFMap findSimiliarEMF(LocationMFMap newEmf);
 
 
 

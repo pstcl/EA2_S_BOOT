@@ -78,7 +78,7 @@
 				<thead>
 					<tr>
 						<th>Location Id</th>
-						
+
 						<th>External MF</th>
 						<th>Net WH Sign</th>
 						<th>Start Date</th>
@@ -93,8 +93,7 @@
 							<td>${location.locationMaster.locationId}</td>
 							<td><fmt:formatNumber type="number" maxFractionDigits="3"
 									value="${location.externalMF}" /></td>
-							<td>${location.netWHSign}
-									 </td>
+							<td>${location.netWHSign}</td>
 							<td><fmt:formatDate value="${location.startDate}"
 									pattern="yyyy-MM-dd HH:mm:ss" /></td>
 							<td><fmt:formatDate value="${location.endDate}"
@@ -132,7 +131,8 @@
 					<div class="row">
 						<div class="col form-control ">
 
-							<label><b>Current External MF:   ${locationEMFModel.oldLocationEmf.externalMF}</b></label>
+							<label><b>Current External MF:
+									${locationEMFModel.oldLocationEmf.externalMF}</b></label>
 						</div>
 					</div>
 					<div class="row">
@@ -140,21 +140,12 @@
 							<label><b>Current Net WH Sign</b> <b>${locationEMFModel.oldLocationEmf.netWHSign}</b></label>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col form-control">
-							<label>Effective Date for change in External Multiplying
-								Factor</label>
-							<form:input type="text" cssClass="date-picker"
-								path="effectiveDate" class="form-control input-sm"
-								required="true" />
-						</div>
-					</div>
+
 				</c:when>
 
 				<c:when test="${locationEMFModel.oldLocationEmf == null}">
 					<div class="row">
-						<div class="alert alert-info lead">No Recent Emf Available
-							for Calculations</div>
+						<div class="alert alert-info lead">Currently No EMF mapping in use</div>
 
 					</div>
 				</c:when>
@@ -163,8 +154,23 @@
 
 			<div class="row">
 				<div class="col form-control">
-					Enter New Emf for Location: 
+					Enter New Emf for Location:
 					<form:input type="text" path="externalMF"
+						class="form-control input-sm"></form:input>
+				</div>
+			</div>
+
+<div class="row">
+				<div class="col form-control">
+					External CT Ratio:
+					<form:input type="text" path="externalCTRation"
+						class="form-control input-sm"></form:input>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col form-control">
+					External PT Ratio:
+					<form:input type="text" path="externalPTRation"
 						class="form-control input-sm"></form:input>
 				</div>
 			</div>
@@ -178,7 +184,14 @@
 					</form:select>
 				</div>
 			</div>
-
+			<div class="row">
+				<div class="col form-control">
+					<label>Effective Date for change in External Multiplying
+						Factor</label>
+					<form:input type="text" cssClass="date-picker" path="effectiveDate"
+						class="form-control input-sm" required="true" />
+				</div>
+			</div>
 			<div class="form-group">
 				<div class="col-lg-offset-2 col-lg-10">
 

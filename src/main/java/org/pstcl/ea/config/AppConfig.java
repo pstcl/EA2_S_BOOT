@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 import org.pstcl.ea.birt.spring.BirtViewReport;
 import org.pstcl.ea.birt.spring.core.BirtEngineFactory;
 import org.pstcl.ea.birt.spring.core.BirtView;
-import org.pstcl.ea.converters.AddReportLocationsConverter;
+import org.pstcl.ea.converters.MapReportLocationsConverter;
 import org.pstcl.ea.converters.BoundaryTypeConverter;
 import org.pstcl.ea.converters.CircleConverter;
 import org.pstcl.ea.converters.DeviceTypeConverter;
@@ -69,7 +69,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     @Autowired
     DeviceTypeConverter deviceTypeConverter;
 	@Autowired
-	AddReportLocationsConverter addReportLocationsConverter;
+	MapReportLocationsConverter addReportLocationsConverter;
 	
 	public void configureViewResolvers(final ViewResolverRegistry registry) {
 			final InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();

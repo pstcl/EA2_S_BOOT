@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
-import org.pstcl.ea.dao.IAddReportLocationsDao;
+import org.pstcl.ea.dao.MontlyReportLocationsDao;
 import org.pstcl.ea.dao.IBoundaryTypeMasterDao;
 import org.pstcl.ea.dao.IDeviceTypeMasterDao;
 import org.pstcl.ea.dao.IFeederMasterDao;
@@ -14,23 +14,25 @@ import org.pstcl.ea.dao.ILocationMasterDao;
 import org.pstcl.ea.dao.IMeterMasterDao;
 import org.pstcl.ea.dao.MeterLocationMapDao;
 import org.pstcl.ea.dao.SubstationUtilityDao;
-import org.pstcl.ea.model.AddReportLocationModel;
+import org.pstcl.ea.entity.CircleMaster;
+import org.pstcl.ea.entity.DivisionMaster;
+import org.pstcl.ea.entity.LocationMaster;
+import org.pstcl.ea.entity.MeterMaster;
+import org.pstcl.ea.entity.SubstationMaster;
+import org.pstcl.ea.entity.mapping.LocationMFMap;
+import org.pstcl.ea.entity.mapping.MeterLocationMap;
+import org.pstcl.ea.entity.mapping.ReportLocationsMonthMap;
+import org.pstcl.ea.model.MapLossReportLocationModel;
 import org.pstcl.ea.model.MastersForLocationEntry;
-import org.pstcl.ea.model.entity.CircleMaster;
-import org.pstcl.ea.model.entity.DivisionMaster;
-import org.pstcl.ea.model.entity.LocationMaster;
-import org.pstcl.ea.model.entity.MeterMaster;
-import org.pstcl.ea.model.entity.SubstationMaster;
 import org.pstcl.ea.model.mapping.LocationEMFModel;
-import org.pstcl.ea.model.mapping.LocationMFMap;
 import org.pstcl.ea.model.mapping.LocationMeterMappingModel;
-import org.pstcl.ea.model.mapping.MeterLocationMap;
-import org.pstcl.ea.model.mapping.ReportLocationsMonthMap;
 import org.pstcl.model.FilterModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("restService")
+@Transactional(value="sldcTxnManager")
 public class LocationUtilService {
 
 	@Autowired
@@ -132,7 +134,8 @@ public class LocationUtilService {
 	
 	
 
-	
+
+	@Transactional(value="sldcTxnManager")
 	public List<MeterLocationMap> findLocations(MeterMaster meterMaster,LocationMaster locationMaster ) {
 		return mtrLocMapDao.findMappingHistory(meterMaster, locationMaster);
 	}

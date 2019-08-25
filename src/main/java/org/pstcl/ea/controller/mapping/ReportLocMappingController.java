@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.pstcl.ea.model.AddReportLocationModel;
-import org.pstcl.ea.model.entity.LocationMaster;
+import org.pstcl.ea.entity.LocationMaster;
+import org.pstcl.ea.model.MapLossReportLocationModel;
 import org.pstcl.ea.service.impl.masters.ReportLocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +28,7 @@ public class ReportLocMappingController {
 	@RequestMapping(value = "/selectMonthForReportLocations", method = RequestMethod.GET)
 	public ModelAndView selectReportMonths(ModelMap model) {
 		model.addAttribute("error",null);
-		model.addAttribute("addReportLocations", new AddReportLocationModel());
+		model.addAttribute("addReportLocations", new MapLossReportLocationModel());
 		return new ModelAndView("mapping/selectMonthForReportLocations", model);
 	}
 
@@ -39,12 +39,12 @@ public class ReportLocMappingController {
 	 * @return
 	 */
 	@RequestMapping(value = "/selectMonthForReportLocations", method = RequestMethod.POST)
-	public Object selectReportLocations(AddReportLocationModel addReportLocations,ModelMap model) {
+	public Object selectReportLocations(MapLossReportLocationModel addReportLocations,ModelMap model) {
 		//System.out.println(addReportLocations.getMonth());
 		if( addReportLocations.getYear()<1000 || addReportLocations.getYear()>9999)
 		{
 			model.addAttribute("error","Year should be of 4 digits");
-			model.addAttribute("addReportLocations", new AddReportLocationModel());
+			model.addAttribute("addReportLocations", new MapLossReportLocationModel());
 			return new ModelAndView("mapping/selectMonthForReportLocations", model);
 		}
 
@@ -76,7 +76,7 @@ public class ReportLocMappingController {
 	 * @return
 	 */
 	@RequestMapping(value="/addReportLocation",method=RequestMethod.POST)
-	public Object saveReportLocations(AddReportLocationModel addReportLocations,ModelMap model) {
+	public Object saveReportLocations(MapLossReportLocationModel addReportLocations,ModelMap model) {
 		addReportLocations = reportLocMapService.saveReportLocations(addReportLocations);
 		model.addAttribute("addReportLocations", addReportLocations);
 		return "redirect:selectMonthForReportLocations";

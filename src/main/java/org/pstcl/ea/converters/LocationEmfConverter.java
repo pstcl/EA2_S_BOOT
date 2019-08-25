@@ -2,7 +2,7 @@ package org.pstcl.ea.converters;
 
 
 import org.pstcl.ea.dao.ILocationEMFDao;
-import org.pstcl.ea.model.mapping.LocationMFMap;
+import org.pstcl.ea.entity.mapping.LocationMFMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

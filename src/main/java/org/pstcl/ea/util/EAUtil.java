@@ -8,15 +8,15 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.ibm.icu.math.BigDecimal;
 
 public class EAUtil {
-	
-	
+
+
 	//Raw MEter reading
 	public static final int DECIMAL_SCALE_INSTANT_REGISTERS=4;
 	//Raw MEter reading
 	public static final int DECIMAL_PRECESION_INSTANT_REGISTERS=16;
 
 	public static final int DECIMAL_SCALE_INSTANT_REGISTERS1=6;
-	
+
 	//Raw MEter reading
 	public static final int DECIMAL_SCALE_DAILY_SURVEY_IMPORT_EXPORT=3;
 	//Raw MEter reading
@@ -27,21 +27,21 @@ public class EAUtil {
 	//Meter Reading multiplied by MF divided by 1000000
 	public static final int DECIMAL_PRECESION_BOUNDARY_PT_IMPORT_EXPORT=16;
 
-	
-	
+
+
 	public static final int DECIMAL_SCALE_MF=2;
 	public static final int DECIMAL_PRECESION_MF=14;
-	
+
 	public static final int DECIMAL_ROUNDING_MODE=BigDecimal.ROUND_HALF_UP;
 
 
 	public static final int DECIMAL_SCALE_LOSS_PERCENTAGE=4;
 
-//	public static String CRMI_TXT_FILE_REPOSITORY="C:\\Eclipse\\temporary_old_EAP_code\\src\\CMRI_TXT_FILE_REPOSITORY\\";
-//	public static String CRMI_ZIP_FILE_REPOSITORY="C:\\Eclipse\\temporary_old_EAP_code\\src\\CMRI_ZIP_FILE_REPOSITORY\\";
-//	public static String TEMP_FILE_OPEN_DIR="C:\\Eclipse\\temporary_old_EAP_code\\src\\TEMP\\";
-//	public static String CRMI_EXE_FILE_REPOSITORY="C:\\Eclipse\\temporary_old_EAP_code\\src\\CMRI_WS\\";
-////	
+	//	public static String CRMI_TXT_FILE_REPOSITORY="C:\\Eclipse\\temporary_old_EAP_code\\src\\CMRI_TXT_FILE_REPOSITORY\\";
+	//	public static String CRMI_ZIP_FILE_REPOSITORY="C:\\Eclipse\\temporary_old_EAP_code\\src\\CMRI_ZIP_FILE_REPOSITORY\\";
+	//	public static String TEMP_FILE_OPEN_DIR="C:\\Eclipse\\temporary_old_EAP_code\\src\\TEMP\\";
+	//	public static String CRMI_EXE_FILE_REPOSITORY="C:\\Eclipse\\temporary_old_EAP_code\\src\\CMRI_WS\\";
+	////	
 	public static String CRMI_TXT_FILE_REPOSITORY="E:/SLDC_ENERGY_ACC/CMRI/CMRI_TXT_FILE_REPOSITORY/";
 	public static String CRMI_ZIP_FILE_REPOSITORY="E:/SLDC_ENERGY_ACC/CMRI/CMRI_ZIP_FILE_REPOSITORY/";
 	public static String TEMP_FILE_OPEN_DIR="E:/SLDC_ENERGY_ACC/CMRI/TEMP/";
@@ -59,6 +59,13 @@ public class EAUtil {
 	public static Integer LOSS_REPORT_LOC_INCLUDED_X=	100;	
 	public static Integer LOSS_REPORT_LOC_NOT_INCLUDED_X=	-100;	
 
+	public static String EA_LOCATION_REPORT_ENERGY_IE= "EA_LOCATION_REPORT_ENERGY_IE";
+	public static String EA_LOCATION_REPORT_TAMPERS= "EA_LOCATION_REPORT_TAMPERS";
+	public static String EA_LOCATION_REPORT_INSTANT_REGISTERS= "EA_LOCATION_REPORT_INSTANT_REGISTERS";
+	
+	public static String EA_MONTHLY_REPORT_ENERGY_IE= "EA_MONTHLY_REPORT_ENERGY_IE";
+	public static String EA_MONTHLY_REPORT_TAMPERS= "EA_MONTHLY_REPORT_TAMPERS";
+	public static String EA_MONTHLY_REPORT_INSTANT_REGISTERS= "EA_MONTHLY_REPORT_INSTANT_REGISTERS";
 
 	public static Integer FILE_DAILY_RECORD_COUNT_HEALTHY=	45;	
 	public static Integer FILE_LOAD_SURVEY_RECORD_COUNT_HEALTHY=	4320;	
@@ -108,13 +115,18 @@ public class EAUtil {
 
 
 
+	public static Integer FILE_ERROR_FILE_NOT_READABLE=-600;
 	public static Integer FILE_ERROR_METER_NO_NOT_MENTIONED=-500;
 	public static Integer FILE_ERROR_FILE_DELETED=-400;
 	public static Integer FILE_ERROR_METER_NO_MISMATCH=-300;	
 	public static Integer FILE_ERROR_METER_NOT_FOUND=-200;	
+	public static Integer FILE_ERROR_WHILE_EXTRACTING_DATA=-120;
+	public static Integer FILE_ERROR_WHILE_SAVING_DATA=-150;
 	public static Integer FILE_ERROR=-100;
 	public static Integer FILE_ZIP_UPLOADED=25;
 	public static Integer FILE_ZIP_EXTRACTED=100;
+	
+	public static Integer FILE_UNDER_PROCESSING=150;
 	public static Integer FILE_TXT_PROCESSED=200;
 
 
@@ -134,7 +146,10 @@ public class EAUtil {
 	public static Integer DAILY_TRANSACTION_NOT_ENTERED_YET=-100;
 
 	public static Integer DAILY_TRANSACTION_ADDED_MANUALLY=500;
-
+	public static Integer DAILY_TRANSACTION_MODFIED_DUE_TO_METER_MAPPING=550;
+	public static Integer DAILY_TRANSACTION_CALC_FROM_LOAD_SURVEY=600;
+	public static Integer DAILY_TRANSACTION_MODFIED_DUE_TO_MF_MAPPING=650;
+	
 
 
 	public static Integer MONTHLY_TRANSACTION_JE_SAVED_APPROVAL_PENDING=125;

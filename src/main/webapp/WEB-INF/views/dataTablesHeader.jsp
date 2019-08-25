@@ -1,8 +1,8 @@
 
 <link href="<c:url value='/static/css/buttons.dataTables.min.css' />"
 	rel="stylesheet" type="text/css" media="all" />
-<script type="text/javascript"
-	src="${pageContext.servletContext.contextPath}/static/js/dataTables.buttons.min.js"></script>
+<!-- <script type="text/javascript" -->
+<%-- 	src="${pageContext.servletContext.contextPath}/static/js/dataTables.buttons.min.js"></script> --%>
 <script type="text/javascript"
 	src="${pageContext.servletContext.contextPath}/static/js/jszip.min.js"></script>
 <script type="text/javascript"
@@ -11,6 +11,11 @@
 	src="${pageContext.servletContext.contextPath}/static/js/vfs_fonts.js"></script>
 <script type="text/javascript"
 	src="${pageContext.servletContext.contextPath}/static/js/buttons.html5.min.js"></script>
+	<script type="text/javascript"
+	src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+	<script type="text/javascript"
+	src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
+	
 
 <!-- <script type="text/javascript" -->
 <!-- 	src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script> -->

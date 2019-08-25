@@ -4,10 +4,10 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-import org.pstcl.ea.model.entity.DailyTransaction;
-import org.pstcl.ea.model.entity.FileMaster;
-import org.pstcl.ea.model.mapping.LocationMFMap;
-import org.pstcl.ea.model.mapping.MeterLocationMap;
+import org.pstcl.ea.entity.FileMaster;
+import org.pstcl.ea.entity.mapping.LocationMFMap;
+import org.pstcl.ea.entity.mapping.MeterLocationMap;
+import org.pstcl.ea.entity.meterTxnEntity.DailyTransaction;
 import org.pstcl.ea.util.DateUtil;
 import org.pstcl.ea.util.EAUtil;
 

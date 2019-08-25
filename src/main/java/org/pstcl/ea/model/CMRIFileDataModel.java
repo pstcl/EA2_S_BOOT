@@ -2,12 +2,12 @@ package org.pstcl.ea.model;
 
 import java.util.List;
 
-import org.pstcl.ea.model.entity.DailyTransaction;
-import org.pstcl.ea.model.entity.FileMaster;
-import org.pstcl.ea.model.entity.InstantRegisters;
-import org.pstcl.ea.model.entity.LoadSurveyTransaction;
-import org.pstcl.ea.model.entity.LocationMaster;
-import org.pstcl.ea.model.entity.TamperLogTransaction;
+import org.pstcl.ea.entity.FileMaster;
+import org.pstcl.ea.entity.LocationMaster;
+import org.pstcl.ea.entity.meterTxnEntity.DailyTransaction;
+import org.pstcl.ea.entity.meterTxnEntity.InstantRegisters;
+import org.pstcl.ea.entity.meterTxnEntity.TamperLogTransaction;
+import org.pstcl.ea.entity.meterTxnEntity.jpa.LoadSurveyTransaction;
 
 public class CMRIFileDataModel {
 	private InstantRegisters instantRegistersDetails;

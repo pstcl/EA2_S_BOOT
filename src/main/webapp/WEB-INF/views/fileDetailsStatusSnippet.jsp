@@ -1,3 +1,4 @@
+<%@page import="org.pstcl.ea.util.EAUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
@@ -10,24 +11,48 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <c:choose>
-	<c:when test="${fileDetails.processingStatus eq -100}">
+	<c:when test="${fileDetails.processingStatus eq EAUtil.FILE_ERROR_FILE_NOT_READABLE}">
 		<tr>
 			<td>${indexStatus.index+1 }</td>
 			<td class="table-warning"><span> <i class="fa fa-warning"
 					style="font-size: 18px; color: red;"> Error:File not readable </i>
 			</span></td>
 	</c:when>
+	<c:when test="${fileDetails.processingStatus eq -150}">
+		<tr>
+			<td>${indexStatus.index+1 }</td>
+			<td class="table-warning"><span> <i class="fa fa-warning"
+					style="font-size: 18px; color: red;"> Error:Data while saving the data to database </i>
+			</span></td>
+	</c:when>
+	
+	<c:when test="${fileDetails.processingStatus eq -120}">
+		<tr>
+			<td>${indexStatus.index+1 }</td>
+			<td class="table-warning"><span> <i class="fa fa-warning"
+					style="font-size: 18px; color: red;"> Error:Error while extracting data from file </i>
+			</span></td>
+	</c:when>
+	
 	<c:when test="${fileDetails.processingStatus eq -500}">
-		<tr >
+		<tr>
 			<td>${indexStatus.index+1 }</td>
 			<td class="table-warning"><span> <i class="fa fa-warning"
 					style="font-size: 18px; color: red;"> Error:File does not
 						contain valid meter no</i>
 			</span></td>
 	</c:when>
+	<c:when test="${fileDetails.processingStatus eq -600}">
+		<tr>
+			<td>${indexStatus.index+1 }</td>
+			<td class="table-warning"><span> <i class="fa fa-warning"
+					style="font-size: 18px; color: red;"> Error:Zip File is not
+						readable</i>
+			</span></td>
+	</c:when>
 	<c:when
 		test="${fileDetails.processingStatus eq -200 or fileDetails.processingStatus eq -300 }">
-		<tr >
+		<tr>
 			<td>${indexStatus.index+1 }</td>
 			<td class="table-warning"><span> <i class="fa fa-warning"
 					style="font-size: 18px; color: red"><i
@@ -35,12 +60,20 @@
 						Master Data</i>
 			</span></td>
 	</c:when>
-
-
-	<c:when test="${fileDetails.processingStatus eq 100}">
+<c:when
+		test="${fileDetails.processingStatus eq 150}">
 		<tr>
 			<td>${indexStatus.index+1 }</td>
-			<td class="table-success"><c:choose>
+			<td class="table-warning"><span> <i class="fa fa-warning"
+					style="font-size: 18px; color: red"><i
+						class="fas fa-warning"></i>File under processing..</i>
+			</span></td>
+	</c:when>
+
+	<c:when test="${fileDetails.processingStatus eq EAUtil.FILE_ZIP_EXTRACTED}">
+		<tr class="table-success">
+			<td>${indexStatus.index+1 }</td>
+			<td ><c:choose>
 					<c:when test="${fileDetails.fileActionStatus eq 25}">
 						<span> <i class="fa fa-warning"
 							style="font-size: 18px; color: yellow"> Please approve the
@@ -53,12 +86,23 @@
 					</c:otherwise>
 				</c:choose></td>
 	</c:when>
-	<c:when test="${fileDetails.processingStatus eq 200}">
+	<c:when test="${fileDetails.processingStatus eq EAUtil.FILE_TXT_PROCESSED}">
 		<tr>
 			<td>${indexStatus.index+1 }</td>
-			<td class="bg-success"><span> <i class="fa fa-warning"
-					style="font-size: 18px; color: White"> Text File Processed</i>
-			</span></td>
+
+			<c:choose>
+				<c:when test="${ fileDetails.dailyRecordCount < 45}">
+
+					<td class="bg-warning"><span> <i class="fa fa-warning"
+							style="font-size: 18px; color: White"> Text file processed but full month data might not be available</i>
+					</span></td>
+				</c:when>
+				<c:otherwise>
+					<td class="bg-success"><span> <i class="fa fa-warning"
+							style="font-size: 18px; color: White"> Text File Processed</i>
+					</span></td>
+				</c:otherwise>
+			</c:choose>
 	</c:when>
 
 </c:choose>
